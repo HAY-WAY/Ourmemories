@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
-=======
->>>>>>> c2c4d20 (first)
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
@@ -50,6 +47,13 @@
       text-decoration: none;
     }
 
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
     .wrap {
       width: min(calc(100% - 32px), var(--max));
       margin: 0 auto;
@@ -96,8 +100,9 @@
       padding: 32px 0 18px;
     }
 
-    .hero-card {
-      background: rgba(255, 250, 245, 0.84);
+    .hero-card,
+    .section-card {
+      background: rgba(255, 250, 245, 0.86);
       border: 1px solid rgba(166, 108, 90, 0.14);
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow);
@@ -131,24 +136,11 @@
       letter-spacing: 0.08em;
     }
 
-    .hero-copy {
+    .hero-copy,
+    .section-copy {
       margin: 12px 0 0;
       color: rgba(46, 36, 31, 0.78);
       line-height: 1.6;
-    }
-
-    .hero-chip {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .chip {
-      padding: 10px 14px;
-      border: 1px dashed rgba(166, 108, 90, 0.36);
-      border-radius: 999px;
-      background: rgba(255,255,255,0.65);
-      font-size: 0.9rem;
     }
 
     .gallery {
@@ -161,7 +153,7 @@
     .session-card {
       grid-column: span 4;
       position: relative;
-      min-height: 320px;
+      min-height: 340px;
       border-radius: 24px;
       overflow: hidden;
       box-shadow: var(--shadow);
@@ -202,7 +194,7 @@
       position: absolute;
       inset: auto 0 0 0;
       padding: 18px;
-      background: linear-gradient(180deg, transparent, rgba(24, 18, 15, 0.76));
+      background: linear-gradient(180deg, transparent, rgba(24, 18, 15, 0.78));
       color: #fffaf5;
       z-index: 1;
     }
@@ -230,40 +222,38 @@
       color: rgba(255, 250, 245, 0.86);
     }
 
-    .section {
-      padding: 16px 0 26px;
+    .character-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
     }
 
-    .section-card {
-      position: relative;
-      background: rgba(255, 250, 245, 0.88);
-      border-radius: var(--radius-xl);
-      border: 1px solid rgba(166, 108, 90, 0.14);
-      box-shadow: var(--shadow);
-      padding: 24px;
+    .character-thumb {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
       overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255,255,255,0.22);
+      backdrop-filter: blur(3px);
+      box-shadow: 0 8px 16px rgba(46, 36, 31, 0.08);
     }
 
-    .section-card::after {
-      content: "";
-      position: absolute;
-      top: -50px;
-      right: -50px;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      background: rgba(232, 207, 194, 0.38);
-      filter: blur(6px);
-      pointer-events: none;
+    .character-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .section {
+      padding: 16px 0 28px;
     }
 
     .section-head {
-      position: relative;
-      z-index: 1;
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 18px;
+      gap: 16px;
       margin-bottom: 18px;
       flex-wrap: wrap;
     }
@@ -273,17 +263,159 @@
       font-size: 1.35rem;
     }
 
-    .section-copy {
-      margin: 8px 0 0;
-      line-height: 1.6;
-      color: rgba(46, 36, 31, 0.78);
+    .calendar-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+      gap: 18px;
+      align-items: start;
     }
 
-    .toolbox {
+    .calendar-box,
+    .planner-box {
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(166, 108, 90, 0.14);
+      border-radius: 22px;
+      padding: 18px;
+    }
+
+    .calendar-top {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .month-title {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .icon-btn {
+      appearance: none;
+      border: 0;
+      background: rgba(166, 108, 90, 0.12);
+      color: var(--ink);
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .weekdays,
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .weekdays {
+      margin-bottom: 8px;
+      color: rgba(46, 36, 31, 0.62);
+      font-size: 0.88rem;
+      text-align: center;
+    }
+
+    .weekday {
+      padding: 6px 0;
+    }
+
+    .day-cell {
+      min-height: 92px;
+      padding: 10px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(166, 108, 90, 0.12);
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+      text-align: left;
+    }
+
+    .day-cell:hover {
+      transform: translateY(-2px);
+      border-color: rgba(166, 108, 90, 0.38);
+      box-shadow: 0 10px 18px rgba(46, 36, 31, 0.08);
+    }
+
+    .day-cell.muted {
+      opacity: 0.42;
+    }
+
+    .day-cell.today {
+      border-color: rgba(166, 108, 90, 0.7);
+    }
+
+    .day-cell.selected {
+      background: rgba(232, 207, 194, 0.36);
+      border-color: rgba(166, 108, 90, 0.56);
+    }
+
+    .day-number {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .event-dots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .event-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--point);
+    }
+
+    .event-dot.anniversary {
+      background: #d07a8c;
+    }
+
+    .planner-box h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+    }
+
+    .selected-date {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--point-soft);
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .field,
+    .select,
+    .textarea {
+      width: 100%;
+      border: 1px solid rgba(166, 108, 90, 0.18);
+      border-radius: 14px;
+      background: #fff;
+      padding: 12px 14px;
+      color: var(--ink);
+    }
+
+    .textarea {
+      resize: vertical;
+      min-height: 92px;
+    }
+
+    .btn-row {
+      display: flex;
       gap: 10px;
       flex-wrap: wrap;
+      margin-top: 8px;
     }
 
     .btn {
@@ -293,7 +425,6 @@
       background: var(--point);
       color: #fff;
       padding: 12px 16px;
-      font: inherit;
       font-weight: 700;
       cursor: pointer;
       box-shadow: 0 10px 20px rgba(166, 108, 90, 0.25);
@@ -306,182 +437,48 @@
       box-shadow: none;
     }
 
-    .board {
-      position: relative;
-      min-height: 760px;
-      border-radius: 24px;
-      background:
-        linear-gradient(0deg, rgba(255,255,255,0.24), rgba(255,255,255,0.24)),
-        url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1600&q=80') center/cover;
-      border: 2px dashed rgba(166, 108, 90, 0.2);
-      overflow: hidden;
+    .event-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
     }
 
-    .board-note {
-      position: absolute;
-      top: 16px;
-      left: 16px;
-      z-index: 2;
+    .event-item {
       padding: 12px 14px;
       border-radius: 16px;
-      background: rgba(255, 250, 245, 0.92);
-      border: 1px solid rgba(166, 108, 90, 0.16);
-      max-width: 260px;
-      line-height: 1.5;
-      font-size: 0.92rem;
-      box-shadow: 0 8px 18px rgba(46, 36, 31, 0.1);
-    }
-
-    .sticker-tray {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(86px, 1fr));
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .sticker-pick {
-      aspect-ratio: 1 / 1;
-      background: rgba(255,255,255,0.8);
-      border: 1px solid rgba(166, 108, 90, 0.14);
-      border-radius: 20px;
-      display: grid;
-      place-items: center;
-      padding: 10px;
-      cursor: pointer;
-      transition: transform 0.18s ease, border-color 0.18s ease;
-    }
-
-    .sticker-pick:hover,
-    .sticker-pick.active {
-      transform: translateY(-2px);
-      border-color: rgba(166, 108, 90, 0.5);
-    }
-
-    .sticker-pick img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      pointer-events: none;
-      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.12));
-    }
-
-    .sticker-item {
-      position: absolute;
-      width: 130px;
-      user-select: none;
-      touch-action: none;
-      cursor: grab;
-      filter: drop-shadow(0 14px 18px rgba(0, 0, 0, 0.18));
-    }
-
-    .sticker-item.dragging {
-      cursor: grabbing;
-      z-index: 30;
-    }
-
-    .sticker-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      pointer-events: none;
-    }
-
-    .sticker-controls {
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 6px;
-      opacity: 0;
-      transition: opacity 0.18s ease;
-      pointer-events: none;
-    }
-
-    .sticker-item.selected .sticker-controls {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .mini-btn {
-      appearance: none;
-      border: 0;
-      background: rgba(255, 250, 245, 0.95);
-      width: 30px;
-      height: 30px;
-      border-radius: 999px;
-      box-shadow: 0 8px 18px rgba(46, 36, 31, 0.16);
-      font: inherit;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .entry-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .entry {
-      display: block;
-      background: rgba(255,255,255,0.78);
+      background: rgba(255,255,255,0.86);
       border: 1px solid rgba(166, 108, 90, 0.12);
-      border-radius: 22px;
-      overflow: hidden;
-      transition: transform 0.18s ease, box-shadow 0.18s ease;
     }
 
-    .entry:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 28px rgba(46, 36, 31, 0.12);
-    }
-
-    .entry img {
-      aspect-ratio: 16 / 10;
-      width: 100%;
-      object-fit: cover;
-    }
-
-    .entry-body {
-      padding: 16px;
-    }
-
-    .entry-body h3 {
-      margin: 0 0 8px;
-      font-size: 1rem;
-    }
-
-    .entry-body p {
-      margin: 0;
-      color: rgba(46, 36, 31, 0.72);
-      line-height: 1.55;
-      font-size: 0.92rem;
-    }
-
-    .character-row {
+    .event-head {
       display: flex;
-      gap: 10px;
-      margin-top: 12px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
     }
 
-    .character-thumb {
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid rgba(166, 108, 90, 0.14);
-      background: rgba(255,255,255,0.8);
-      box-shadow: 0 8px 16px rgba(46, 36, 31, 0.08);
+    .event-type {
+      display: inline-flex;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(166, 108, 90, 0.12);
+      font-size: 0.8rem;
+      font-weight: 700;
     }
 
-    .character-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .event-type.anniversary {
+      background: rgba(208, 122, 140, 0.18);
+    }
+
+    .empty {
+      color: rgba(46, 36, 31, 0.58);
+      line-height: 1.6;
+      padding: 6px 2px;
     }
 
     footer {
-      padding: 14px 0 40px;
+      padding: 10px 0 34px;
       color: rgba(46, 36, 31, 0.64);
       text-align: center;
       font-size: 0.92rem;
@@ -496,8 +493,8 @@
         grid-column: span 1;
       }
 
-      .entry-grid {
-        grid-template-columns: 1fr 1fr;
+      .calendar-layout {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -511,21 +508,18 @@
         padding: 18px;
       }
 
-      .gallery,
-      .entry-grid {
+      .gallery {
         grid-template-columns: 1fr;
       }
 
-      .board {
-        min-height: 620px;
+      .weekdays,
+      .calendar-grid {
+        gap: 6px;
       }
 
-      .sticker-item {
-        width: 104px;
-      }
-
-      .board-note {
-        max-width: calc(100% - 32px);
+      .day-cell {
+        min-height: 76px;
+        padding: 8px;
       }
     }
   </style>
@@ -536,8 +530,7 @@
       <a href="#top" class="logo">HAYWAY</a>
       <nav class="nav">
         <a href="#sessions">SESSION</a>
-        <a href="#scrapbook">SCRAPBOOK</a>
-        <a href="#archive">ARCHIVE</a>
+        <a href="#calendar">CALENDAR</a>
       </nav>
     </div>
   </header>
@@ -552,13 +545,8 @@
               <h1>HAYWAY</h1>
               <p class="hero-copy">
                 세션 폴더별 대표 이미지를 첫 화면 카드로 보여주는 백업용 블로그.
-                각 카드는 세션 폴더 안의 Main.html 채팅 로그로 바로 이동하고 아래에서는 스티커를 붙이듯 꾸밀 수 있게 구성했습니다.
+                카드를 누르면 각 세션 폴더 안의 Main.html 채팅 로그로 이동합니다.
               </p>
-            </div>
-            <div class="hero-chip">
-              <div class="chip">세션폴더 이동형</div>
-              <div class="chip">intro 대표 이미지</div>
-              <div class="chip">NI · FI 캐릭터 이미지</div>
             </div>
           </div>
 
@@ -567,51 +555,61 @@
       </div>
     </section>
 
-    <section class="section" id="scrapbook">
+    <section class="section" id="calendar">
       <div class="wrap">
         <div class="section-card">
           <div class="section-head">
             <div>
-              <h2 class="section-title">SCRAPBOOK BOARD</h2>
+              <h2 class="section-title">CALENDAR</h2>
               <p class="section-copy">
-                아래 스티커를 눌러 보드에 추가할 수 있습니다.
-                추가된 스티커는 드래그로 이동할 수 있고 회전과 삭제도 됩니다.
-                배치는 브라우저에 자동 저장됩니다.
-              </p>
-            </div>
-            <div class="toolbox">
-              <button class="btn secondary" id="resetBoard">보드 초기화</button>
-              <button class="btn" id="saveBoard">지금 상태 저장</button>
-            </div>
-          </div>
-
-          <div class="board" id="board">
-            <div class="board-note">
-              팁<br />
-              원하는 스티커를 누르면 중앙에 추가됩니다.<br />
-              스티커를 눌러 선택하면 회전과 삭제 버튼이 뜹니다.
-            </div>
-          </div>
-
-          <div class="sticker-tray" id="stickerTray"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="archive">
-      <div class="wrap">
-        <div class="section-card">
-          <div class="section-head">
-            <div>
-              <h2 class="section-title">ARCHIVE PREVIEW</h2>
-              <p class="section-copy">
-                세션 폴더 내부 로그 페이지로 이동하는 미리보기 영역입니다.
-                대표 이미지와 캐릭터 이미지를 홈에서 바로 확인할 수 있게 연결했습니다.
+                날짜를 누른 뒤 기념일이나 일정을 추가할 수 있습니다.
+                입력한 내용은 브라우저에 저장됩니다.
               </p>
             </div>
           </div>
 
-          <div class="entry-grid" id="entryGrid"></div>
+          <div class="calendar-layout">
+            <div class="calendar-box">
+              <div class="calendar-top">
+                <button class="icon-btn" id="prevMonth" type="button">‹</button>
+                <h3 class="month-title" id="monthTitle"></h3>
+                <button class="icon-btn" id="nextMonth" type="button">›</button>
+              </div>
+
+              <div class="weekdays">
+                <div class="weekday">일</div>
+                <div class="weekday">월</div>
+                <div class="weekday">화</div>
+                <div class="weekday">수</div>
+                <div class="weekday">목</div>
+                <div class="weekday">금</div>
+                <div class="weekday">토</div>
+              </div>
+
+              <div class="calendar-grid" id="calendarGrid"></div>
+            </div>
+
+            <aside class="planner-box">
+              <h3>기념일 · 일정 추가</h3>
+              <div class="selected-date" id="selectedDateLabel"></div>
+
+              <div class="form-grid">
+                <input class="field" id="eventTitle" type="text" placeholder="제목" />
+                <select class="select" id="eventType">
+                  <option value="schedule">일정</option>
+                  <option value="anniversary">기념일</option>
+                </select>
+                <textarea class="textarea" id="eventMemo" placeholder="메모"></textarea>
+              </div>
+
+              <div class="btn-row">
+                <button class="btn" id="addEventBtn" type="button">추가</button>
+                <button class="btn secondary" id="clearSelectedBtn" type="button">해당 날짜 전체 삭제</button>
+              </div>
+
+              <div class="event-list" id="eventList"></div>
+            </aside>
+          </div>
         </div>
       </div>
     </section>
@@ -637,34 +635,7 @@
       }
     ];
 
-    const archiveEntries = [
-      {
-        title: 'Mermalondo 로그',
-        text: '세션 폴더 내부 Main.html에 채팅 로그가 들어가는 구조.',
-        image: './Mermalondo/intro.jpg',
-        link: './Mermalondo/Main.html'
-      },
-      {
-        title: '캐릭터 이미지',
-        text: '세션 폴더 안의 NI.jpg와 FI.jpg를 캐릭터 이미지로 사용.',
-        image: './Mermalondo/NI.jpg',
-        link: './Mermalondo/Main.html'
-      },
-      {
-        title: '세션 이동',
-        text: '대표 이미지와 캐릭터 이미지를 홈에서 보고 세션 로그로 진입.',
-        image: './Mermalondo/FI.jpg',
-        link: './Mermalondo/Main.html'
-      }
-    ];
-
- const stickerList = [];
-        for (let i = 1; i <= 14; i++) {
-  stickerList.push(`Stiker/${i}.png`);
-    }
-
     const gallery = document.getElementById('sessions');
-    const entryGrid = document.getElementById('entryGrid');
 
     function renderGallery() {
       gallery.innerHTML = sessions.map((session, index) => `
@@ -693,180 +664,202 @@
       });
     }
 
-    function renderArchive() {
-      entryGrid.innerHTML = archiveEntries.map((item) => `
-        <a class="entry" href="${item.link}">
-          <img src="${item.image}" alt="${item.title}" />
-          <div class="entry-body">
-            <h3>${item.title}</h3>
-            <p>${item.text}</p>
-          </div>
-        </a>
-      `).join('');
+    const STORAGE_KEY = 'hayway-calendar-events-v1';
+    const monthTitle = document.getElementById('monthTitle');
+    const calendarGrid = document.getElementById('calendarGrid');
+    const selectedDateLabel = document.getElementById('selectedDateLabel');
+    const eventList = document.getElementById('eventList');
+    const eventTitle = document.getElementById('eventTitle');
+    const eventType = document.getElementById('eventType');
+    const eventMemo = document.getElementById('eventMemo');
+    const prevMonth = document.getElementById('prevMonth');
+    const nextMonth = document.getElementById('nextMonth');
+    const addEventBtn = document.getElementById('addEventBtn');
+    const clearSelectedBtn = document.getElementById('clearSelectedBtn');
+
+    const today = new Date();
+    let currentYear = today.getFullYear();
+    let currentMonth = today.getMonth();
+    let selectedDateKey = formatDateKey(today);
+    let calendarEvents = loadEvents();
+
+    function formatDateKey(date) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
     }
 
-    const tray = document.getElementById('stickerTray');
-    const board = document.getElementById('board');
-    const saveBoardBtn = document.getElementById('saveBoard');
-    const resetBoardBtn = document.getElementById('resetBoard');
-    const STORAGE_KEY = 'hayway-stickers-v1';
-    let stickerState = [];
+    function parseDateKey(key) {
+      const [y, m, d] = key.split('-').map(Number);
+      return new Date(y, m - 1, d);
+    }
 
-    function renderStickerTray() {
-      tray.innerHTML = stickerList.map((src, index) => `
-        <button class="sticker-pick" type="button" data-index="${index}" aria-label="스티커 ${index + 1} 추가">
-          <img src="${src}" alt="스티커 ${index + 1}" />
-        </button>
-      `).join('');
+    function formatLabel(date) {
+      return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+    }
 
-      tray.querySelectorAll('.sticker-pick').forEach((pick) => {
-        pick.addEventListener('click', () => {
-          tray.querySelectorAll('.sticker-pick').forEach((el) => el.classList.remove('active'));
-          pick.classList.add('active');
-          addSticker(stickerList[Number(pick.dataset.index)]);
-          setTimeout(() => pick.classList.remove('active'), 180);
+    function loadEvents() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+      } catch {
+        return {};
+      }
+    }
+
+    function saveEvents() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(calendarEvents));
+    }
+
+    function renderCalendar() {
+      monthTitle.textContent = `${currentYear}년 ${currentMonth + 1}월`;
+      selectedDateLabel.textContent = formatLabel(parseDateKey(selectedDateKey));
+
+      const firstDay = new Date(currentYear, currentMonth, 1);
+      const lastDay = new Date(currentYear, currentMonth + 1, 0);
+      const startWeekday = firstDay.getDay();
+      const daysInMonth = lastDay.getDate();
+      const prevLastDay = new Date(currentYear, currentMonth, 0).getDate();
+
+      const cells = [];
+
+      for (let i = startWeekday - 1; i >= 0; i -= 1) {
+        const date = new Date(currentYear, currentMonth - 1, prevLastDay - i);
+        cells.push(createCellData(date, true));
+      }
+
+      for (let day = 1; day <= daysInMonth; day += 1) {
+        const date = new Date(currentYear, currentMonth, day);
+        cells.push(createCellData(date, false));
+      }
+
+      const remain = 42 - cells.length;
+      for (let day = 1; day <= remain; day += 1) {
+        const date = new Date(currentYear, currentMonth + 1, day);
+        cells.push(createCellData(date, true));
+      }
+
+      calendarGrid.innerHTML = cells.map((cell) => {
+        const dots = cell.events.slice(0, 4).map((item) => `
+          <span class="event-dot ${item.type === 'anniversary' ? 'anniversary' : ''}"></span>
+        `).join('');
+
+        return `
+          <button class="day-cell ${cell.isMuted ? 'muted' : ''} ${cell.isToday ? 'today' : ''} ${cell.isSelected ? 'selected' : ''}" type="button" data-date="${cell.key}">
+            <div class="day-number">${cell.day}</div>
+            <div class="event-dots">${dots}</div>
+          </button>
+        `;
+      }).join('');
+
+      calendarGrid.querySelectorAll('.day-cell').forEach((button) => {
+        button.addEventListener('click', () => {
+          selectedDateKey = button.dataset.date;
+          const date = parseDateKey(selectedDateKey);
+          currentYear = date.getFullYear();
+          currentMonth = date.getMonth();
+          renderCalendar();
+          renderEvents();
         });
       });
     }
 
-    function addSticker(src) {
-      const sticker = {
-        id: Date.now() + Math.floor(Math.random() * 1000),
-        src,
-        x: Math.max(24, board.clientWidth / 2 - 65),
-        y: Math.max(90, board.clientHeight / 2 - 65),
-        rotate: `${Math.floor(Math.random() * 21) - 10}deg`,
-        scale: 1
+    function createCellData(date, isMuted) {
+      const key = formatDateKey(date);
+      const isToday = key === formatDateKey(today);
+      const isSelected = key === selectedDateKey;
+      return {
+        key,
+        day: date.getDate(),
+        isMuted,
+        isToday,
+        isSelected,
+        events: calendarEvents[key] || []
       };
-      stickerState.push(sticker);
-      drawStickers();
-      persistBoard();
     }
 
-    function drawStickers() {
-      board.querySelectorAll('.sticker-item').forEach((node) => node.remove());
+    function renderEvents() {
+      selectedDateLabel.textContent = formatLabel(parseDateKey(selectedDateKey));
+      const items = calendarEvents[selectedDateKey] || [];
 
-      stickerState.forEach((item) => {
-        const wrapper = document.createElement('div');
-        wrapper.className = 'sticker-item';
-        wrapper.dataset.id = item.id;
-        wrapper.style.left = `${item.x}px`;
-        wrapper.style.top = `${item.y}px`;
-        wrapper.style.transform = `rotate(${item.rotate}) scale(${item.scale})`;
-        wrapper.innerHTML = `
-          <img src="${item.src}" alt="붙인 스티커" />
-          <div class="sticker-controls">
-            <button class="mini-btn" type="button" data-action="left">⟲</button>
-            <button class="mini-btn" type="button" data-action="right">⟳</button>
-            <button class="mini-btn" type="button" data-action="delete">×</button>
+      if (!items.length) {
+        eventList.innerHTML = '<div class="empty">이 날짜에는 등록된 기념일이나 일정이 없습니다.</div>';
+        return;
+      }
+
+      eventList.innerHTML = items.map((item, index) => `
+        <div class="event-item">
+          <div class="event-head">
+            <strong>${item.title}</strong>
+            <button class="icon-btn" type="button" data-remove-index="${index}">×</button>
           </div>
-        `;
-        board.appendChild(wrapper);
-        bindSticker(wrapper, item.id);
+          <div class="event-type ${item.type === 'anniversary' ? 'anniversary' : ''}">${item.type === 'anniversary' ? '기념일' : '일정'}</div>
+          ${item.memo ? `<p style="margin: 8px 0 0; line-height: 1.55; color: rgba(46, 36, 31, 0.74);">${item.memo}</p>` : ''}
+        </div>
+      `).join('');
+
+      eventList.querySelectorAll('[data-remove-index]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const index = Number(button.dataset.removeIndex);
+          calendarEvents[selectedDateKey].splice(index, 1);
+          if (!calendarEvents[selectedDateKey].length) delete calendarEvents[selectedDateKey];
+          saveEvents();
+          renderCalendar();
+          renderEvents();
+        });
       });
     }
 
-    function bindSticker(el, id) {
-      el.addEventListener('pointerdown', (e) => {
-        if (e.target.closest('.mini-btn')) return;
-        selectSticker(id);
-        const sticker = stickerState.find((s) => s.id === id);
-        if (!sticker) return;
+    addEventBtn.addEventListener('click', () => {
+      const title = eventTitle.value.trim();
+      const memo = eventMemo.value.trim();
+      const type = eventType.value;
 
-        const rect = board.getBoundingClientRect();
-        const startX = e.clientX - sticker.x;
-        const startY = e.clientY - sticker.y;
-
-        el.classList.add('dragging');
-        el.setPointerCapture(e.pointerId);
-
-        const onMove = (moveEvent) => {
-          const nextX = moveEvent.clientX - rect.left - startX;
-          const nextY = moveEvent.clientY - rect.top - startY;
-          sticker.x = Math.min(Math.max(0, nextX), board.clientWidth - el.offsetWidth);
-          sticker.y = Math.min(Math.max(0, nextY), board.clientHeight - el.offsetHeight);
-          el.style.left = `${sticker.x}px`;
-          el.style.top = `${sticker.y}px`;
-        };
-
-        const onUp = () => {
-          el.classList.remove('dragging');
-          persistBoard();
-          window.removeEventListener('pointermove', onMove);
-          window.removeEventListener('pointerup', onUp);
-        };
-
-        window.addEventListener('pointermove', onMove);
-        window.addEventListener('pointerup', onUp);
-      });
-
-      el.addEventListener('click', (e) => {
-        const actionBtn = e.target.closest('.mini-btn');
-        if (!actionBtn) {
-          selectSticker(id);
-          return;
-        }
-
-        const sticker = stickerState.find((s) => s.id === id);
-        if (!sticker) return;
-
-        const action = actionBtn.dataset.action;
-        const currentDeg = Number(String(sticker.rotate).replace('deg', '')) || 0;
-
-        if (action === 'left') sticker.rotate = `${currentDeg - 12}deg`;
-        if (action === 'right') sticker.rotate = `${currentDeg + 12}deg`;
-        if (action === 'delete') stickerState = stickerState.filter((s) => s.id !== id);
-
-        drawStickers();
-        persistBoard();
-      });
-    }
-
-    function selectSticker(id) {
-      board.querySelectorAll('.sticker-item').forEach((node) => node.classList.remove('selected'));
-      const selected = board.querySelector(`.sticker-item[data-id="${id}"]`);
-      if (selected) selected.classList.add('selected');
-    }
-
-    board.addEventListener('click', (e) => {
-      if (e.target === board) {
-        board.querySelectorAll('.sticker-item').forEach((node) => node.classList.remove('selected'));
+      if (!title) {
+        alert('제목을 입력하세요.');
+        return;
       }
+
+      if (!calendarEvents[selectedDateKey]) calendarEvents[selectedDateKey] = [];
+      calendarEvents[selectedDateKey].push({ title, memo, type });
+
+      saveEvents();
+      eventTitle.value = '';
+      eventMemo.value = '';
+      eventType.value = 'schedule';
+      renderCalendar();
+      renderEvents();
     });
 
-    function persistBoard() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(stickerState));
-    }
-
-    function loadBoard() {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (!saved) return;
-      try {
-        stickerState = JSON.parse(saved);
-        drawStickers();
-      } catch (error) {
-        console.error('저장된 스티커 데이터를 불러오지 못했습니다.', error);
-      }
-    }
-
-    saveBoardBtn.addEventListener('click', () => {
-      persistBoard();
-      saveBoardBtn.textContent = '저장 완료';
-      setTimeout(() => {
-        saveBoardBtn.textContent = '지금 상태 저장';
-      }, 1200);
+    clearSelectedBtn.addEventListener('click', () => {
+      if (!calendarEvents[selectedDateKey]) return;
+      delete calendarEvents[selectedDateKey];
+      saveEvents();
+      renderCalendar();
+      renderEvents();
     });
 
-    resetBoardBtn.addEventListener('click', () => {
-      stickerState = [];
-      drawStickers();
-      persistBoard();
+    prevMonth.addEventListener('click', () => {
+      currentMonth -= 1;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear -= 1;
+      }
+      renderCalendar();
+    });
+
+    nextMonth.addEventListener('click', () => {
+      currentMonth += 1;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear += 1;
+      }
+      renderCalendar();
     });
 
     renderGallery();
-    renderStickerTray();
-    renderArchive();
-    loadBoard();
+    renderCalendar();
+    renderEvents();
   </script>
 </body>
 </html>
